@@ -14,7 +14,7 @@ To achieve a completely responsive, zero-latency desktop terminal experience, Fa
 
 * ⚡ **[FastCore](https://github.com/andrestubbe/FastCore)** — Unified native JNI loader and ecosystem configuration kernel.
 * ⚡ **[FastTerminal](https://github.com/andrestubbe/FastTerminal)** — Low-latency, hardware-accelerated 24-bit True Color terminal blitter.
-* ⚡ **[FastTUI](https://github.com/andrestubbe/FastTUI)** — Composable Text User Interface widget library.
+* ⚡ **[FastTUI](https://github.com/andrestubbe/FastTUI)** — Composable Terminal User Interface widget library.
 
 ---
 

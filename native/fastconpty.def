@@ -1,0 +1,9 @@
+LIBRARY fastconpty
+EXPORTS
+    Java_fastconpty_FastConPTY_nativeCreatePseudoConsole
+    Java_fastconpty_FastConPTY_nativeResizePseudoConsole
+    Java_fastconpty_FastConPTY_nativeClosePseudoConsole
+    Java_fastconpty_FastConPTY_nativeStartProcess
+    Java_fastconpty_FastConPTY_nativeWrite
+    Java_fastconpty_FastConPTY_nativeRead
+    Java_fastconpty_FastConPTY_nativeWaitFor

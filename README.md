@@ -57,7 +57,6 @@ public class Demo {
 - [Key Features](#key-features)
 - [Architecture & JNI Boundary](#architecture--jni-boundary)
 - [Installation](#installation)
-- [Compilation & Native Setup](#compilation--native-setup)
 - [Running the Interactive Demo](#running-the-interactive-demo)
 - [License](#license)
 
@@ -109,27 +108,7 @@ Add the JitPack repository and the dependency to your `pom.xml`:
 </dependencies>
 ```
 
----
 
-## Compilation & Native Setup
-
-### Prerequisites
-* **Operating System:** Windows 10 (version 1809+) or Windows 11.
-* **JDK:** Java 17+ (Ensure `JAVA_HOME` is set).
-* **Compiler:** Visual Studio 2019/2022 (with **Desktop development with C++** package).
-
-### Build Instructions
-1. **Compile the Native Library:**
-   ```cmd
-   compile.bat
-   ```
-   This script auto-detects the Visual Studio C++ Compiler (`cl.exe`), compiles the source files inside `native/`, and copies the output `fastconpty.dll` directly to the `src/main/resources` folder.
-
-2. **Package the Java Jar:**
-   ```cmd
-   mvn clean install
-   ```
-   Compiles the Java wrapper and bundles the native DLL directly inside the final target JAR, making it ready for production deployment.
 
 ---
 

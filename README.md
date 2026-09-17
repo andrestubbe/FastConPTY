@@ -63,23 +63,24 @@ public class Demo {
 ---
 
 ## Why FastConPTY?
-Spawning interactive command-line utilities (like `git push`, SSH authentication, `pip install`, or `docker exec`) inside Java via standard `ProcessBuilder` leads to terminal output corruption, missing colors, or hanging threads. These utilities expect a real terminal interface (Pseudo-Console) to handle progress bars, secret inputs, and ANSI styling.
 
-* **Broken Interactive CLIs:** Standard Java `ProcessBuilder` uses anonymous pipes without a TTY abstraction, causing curses/ncurses and ANSI programs to disable formatting or crash entirely.
-* **JNA Reflection Overhead:** Libraries relying on JNA marshal structs and memory pointers through dynamic reflection layers, inducing garbage collection churn and latency.
-* **Thread Contention & Blocking I/O:** Standard streams frequently block threads while polling child process standard I/O without native non-blocking pipe readiness.
-* **Process Tree Desynchronization:** Failing to attach processes to `STARTUPINFOEX` attribute lists causes orphan child processes and leaked console handles.
+Spawning interactive command-line utilities (like `git push`, SSH authentication, `pip install`, or `docker exec`) inside Java via standard `ProcessBuilder` leads to terminal output corruption, missing colors, or hanging threads:
 
-FastConPTY creates a true Windows Pseudo-Console (ConPTY) handle inside the Win32 kernel, mapping Java-backed ByteBuffer structures directly to native pipes via zero-overhead JNI.
+1. **Broken Interactive CLIs**: Standard Java `ProcessBuilder` uses anonymous pipes without a TTY abstraction, causing curses/ncurses and ANSI programs to disable formatting or crash entirely.
+2. **JNA Reflection Overhead**: Libraries relying on JNA marshal structs and memory pointers through dynamic reflection layers, inducing garbage collection churn and latency.
+3. **Thread Contention & Blocking I/O**: Standard streams frequently block worker threads while polling child process I/O without native non-blocking pipe readiness.
+4. **Process Tree Desynchronization**: Failing to attach processes to `STARTUPINFOEX` attribute lists causes orphan child processes and leaked console handles.
 
-| Feature | Standard `ProcessBuilder` | JNA-based Pty4J | JNI WinPTY (Legacy) | FastConPTY |
-| :--- | :--- | :--- | :--- | :--- |
-| **Native Mechanism** | Anonymous Pipes | JNA Win32 Calls | WinPTY agent.exe wrapper | Native Win32 ConPTY API |
-| **ANSI / VT100 Support** | None (Raw bytes) | Partial (via wrapper) | Yes (via bridge layer) | Full Hardware/VT Engine |
-| **Zero-Copy Direct Buffers** | No (Byte array copy) | No (JNA heap marshalling) | No (IPC pipe copy) | Yes (`DirectByteBuffer`) |
-| **Kernel Latency** | High (Pipe buffering) | ~5–15 ms (Reflection) | ~10–25 ms (Subprocess) | < 1 ms (Direct Win32) |
-| **Process Tree Safety** | Basic PID only | Variable | High risk of zombie procs | Native `STARTUPINFOEX` |
-| **Dependencies** | JVM standard lib | Heavy JNA bundle (~15 MB) | External binaries & DLLs | 0 Dependencies (Lightweight DLL) |
+FastConPTY creates a true Windows Pseudo-Console (ConPTY) handle inside the Win32 kernel, mapping Java-backed ByteBuffer structures directly to native pipes via zero-overhead JNI:
+
+| Feature | Standard `ProcessBuilder` | Pty4J (JNA / WinPTY) | FastConPTY |
+|:---|:---|:---|:---|
+| **Native Mechanism** | Anonymous Pipes | JNA calls / `agent.exe` bridge | Native Win32 ConPTY API |
+| **ANSI / VT100 Support** | ❌ None (Raw byte dump) | ⚠️ Partial (Bridge layer lag) | ✅ Full OS ConPTY Engine |
+| **Zero-Copy Direct Buffers** | ❌ Heap byte[] copy | ❌ JNA heap marshalling | ✅ Yes (`DirectByteBuffer`) |
+| **Kernel Latency** | High (Pipe buffering) | ~5–25 ms (Reflection/Bridge) | **< 1 ms** (Direct Win32) |
+| **Process Tree Safety** | Basic PID only | Variable (Zombie proc risk) | Native `STARTUPINFOEX` |
+| **Dependencies** | Standard JVM | Heavy bundle (~15 MB / DLLs) | 0 external deps (Lightweight DLL) |
 
 ---
 

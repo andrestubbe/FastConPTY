@@ -57,7 +57,7 @@ public class Demo {
 - [Key Features](#key-features)
 - [Architecture & JNI Boundary](#architecture--jni-boundary)
 - [Installation](#installation)
-- [Running the Interactive Demo](#running-the-interactive-demo)
+- [Technical Demos & Benchmarks](#technical-demos--benchmarks)
 - [License](#license)
 
 ---
@@ -125,13 +125,12 @@ Add the JitPack repository and the dependency to your `pom.xml`:
 
 ---
 
-## Running the Interactive Demo
-A demo showcasing live bidirectional terminal processing is included. You can launch it on Windows by running:
+## Technical Demos & Benchmarks
 
-```cmd
-run-demo.bat
-```
-This builds both FastConPTY and the demo module, and spawns an interactive `cmd.exe` terminal that continuously redirects keyboard inputs and terminal outputs in real-time.
+| Case | Java Example | Launcher | Description |
+|:---|:---|:---|:---|
+| **Interactive Showcase Demo** | [Demo.java](examples/Demo/src/main/java/fastconpty/Demo/Demo.java) | `run-demo.bat` | End-to-end interactive demonstration of bidirectional Windows pseudo-console spawning and ANSI piping. |
+| **JMH Microbenchmark Suite** | [Benchmark.java](examples/Benchmark/src/main/java/fastconpty/benchmark/Benchmark.java) | `run-benchmark.bat` | Formal OpenJDK JMH throughput measurements across native ConPTY resize and I/O pipelines. |
 
 ---
 

@@ -136,3 +136,20 @@ Add the JitPack repository and the dependency to your `pom.xml`:
 
 ## License
 MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## Related Projects
+
+- [FastANSI](https://github.com/andrestubbe/FastANSI) — Zero-allocation ANSI and VT100/VT220 escape sequence parser and compositor
+- [FastASCII](https://github.com/andrestubbe/FastASCII) — Zero-allocation ASCII/UTF-8 byte engine and primitive parser
+- [FastCLICommand](https://github.com/andrestubbe/FastCLICommand) — Zero-allocation, ultra-fast command-line parser and dispatcher
+- [FastTerminal](https://github.com/andrestubbe/FastTerminal) — High-performance True-Color double-buffered terminal rendering engine
+- [FastTerminal3D](https://github.com/andrestubbe/FastTerminal3D) — Real-time software 3D rasterization bridge inside the terminal
+- [FastTUI](https://github.com/andrestubbe/FastTUI) — High-performance native Windows TUI framework with mouse support and widgets
+- [FastCore](https://github.com/andrestubbe/FastCore) — Native library loader, FFM gateway, and platform abstraction layer
+
+---
+
+**Part of the FastJava Ecosystem** — *Making the JVM faster.* 🚀
+
